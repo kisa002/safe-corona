@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="15dp"
+    android:paddingTop="20dp"
+    android:background="#FFFFFF">
+
+    <TextView
+        android:id="@+id/tv_main_detail_rv_item_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="22일"
+        android:textSize="12sp"
+        android:fontFamily="@font/ko_pub_dotum_medium"
+        android:textColor="#33323A"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="15dp"/>
+
+    <TextView
+        android:id="@+id/tv_main_detail_rv_item_route"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="개인 렌터카 이용, 오후1시경 서울 강남구 소재\n의료기관 (글로비 성형외과) 에서 치료를 받는 지인의\n진료의 동행. 인근 식당 이용.\n서울 강남구 소재 호텔 (호텔 뉴브) 에 투숙"
+        android:fontFamily="@font/ko_pub_dotum_medium"
+        android:textColor="#33323A"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_main_detail_rv_item_date"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginLeft="24dp"
+        android:paddingBottom="20dp"/>
+
+    <ImageView
+        android:src="@drawable/drawable_dash_line"
+        android:layerType="software"
+        android:layout_width="match_parent"
+        android:layout_height="1.5dp"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
