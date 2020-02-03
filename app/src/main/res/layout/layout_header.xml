@@ -32,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#000"
-        android:text="예방방법"
+        android:text="이 내용이 보이면 버그입니다!"
         android:textSize="20sp"
         android:fontFamily="@font/ko_pub_dotum_bold"
         android:layout_marginTop="2dp"

@@ -38,7 +38,7 @@ public class SplashActivity extends AppCompatActivity {
                     finish();
                 }
 
-                Log.d("Splash1", "Animate: " + vFade.getAlpha());
+//                Log.d("Splash1", "Animate: " + vFade.getAlpha());
             }
         };
 
@@ -53,7 +53,7 @@ public class SplashActivity extends AppCompatActivity {
                     timer2.schedule(TT2, 1000, 30);
                 }
 
-                Log.d("Splash2", "Animate: " + vFade.getAlpha());
+//                Log.d("Splash2", "Animate: " + vFade.getAlpha());
             }
         };
 

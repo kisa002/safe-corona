@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.haeyum.safecorona.models.InfectedRoute;
@@ -51,6 +52,10 @@ public class DetailInfectedRouteAdapter extends RecyclerView.Adapter<DetailInfec
 //        String text = mData.get(position).getDate();
         holder.tvDate.setText(mData.get(position).getDate());
         holder.tvRoute.setText(mData.get(position).getRoute());
+
+//        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//        params.height = 200; //height recycleviewer
+//        holder.itemView.setLayoutParams(params);
     }
 
     // getItemCount() - 전체 데이터 갯수 리턴.

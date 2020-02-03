@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Camera;
 import android.graphics.Color;
@@ -113,6 +114,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         setContentView(R.layout.activity_main);
 
         initUI();
+
+        Intent intent = new Intent(getApplicationContext(), AlertActivity.class);
+        intent.putExtra("title", "공지사항");
+        intent.putExtra("context", "공지사항을 넣어봅시다!");
+        intent.putExtra("id", 1);
+        startActivity(intent);
 //        Timer timer = new Timer();
 //        timer.schedule(timerServerCheck, 0, 5000);
 //        initDetailInfectedRoute();
@@ -171,14 +178,21 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
 
         // 리사이클러뷰에 LinearLayoutManager 객체 지정.
-        RecyclerView recyclerView = findViewById(R.id.rv_main_detail_location) ;
-        recyclerView.setLayoutManager(new LinearLayoutManager(this)) ;
+        final RecyclerView recyclerView = findViewById(R.id.rv_main_detail_location);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // 리사이클러뷰에 SimpleTextAdapter 객체 지정.
-        DetailInfectedRouteAdapter adapter = new DetailInfectedRouteAdapter(list) ;
-        recyclerView.setAdapter(adapter) ;
+        final DetailInfectedRouteAdapter adapter = new DetailInfectedRouteAdapter(list);
+        recyclerView.setAdapter(adapter);
 
-        Log.d("initDetailInfectedRoute", "리사이클러뷰 업데이트 완료");
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//
+//            }
+//        },3000);
+
+//        Log.d("initDetailInfectedRoute", "리사이클러뷰 업데이트 완료");
     }
 
     public void onClick(View v) {
