@@ -7,17 +7,20 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-public class AlertActivity extends AppCompatActivity {
+public class NoticeActivity extends AppCompatActivity {
 
-    private TextView tvTitle, tvContext;
+    public static NoticeActivity instance = new NoticeActivity();
+
+    private TextView tvTitle;
+    private TextView tvContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_alert);
+        setContentView(R.layout.activity_notice);
 
-        tvTitle = findViewById(R.id.tv_alert_title);
-        tvContext = findViewById(R.id.tv_alert_context);
+        tvTitle = findViewById(R.id.tv_notice_title);
+        tvContext = findViewById(R.id.tv_notice_context);
 
         Intent intent = getIntent();
         tvTitle.setText(intent.getStringExtra("title"));
@@ -26,9 +29,10 @@ public class AlertActivity extends AppCompatActivity {
 
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.cl_alert:
+            case R.id.btn_notice_close:
                 finish();
                 break;
+
         }
     }
 }

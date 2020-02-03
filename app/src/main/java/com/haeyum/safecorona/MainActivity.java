@@ -8,27 +8,21 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.AlertDialog;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.graphics.Camera;
 import android.graphics.Color;
 import android.graphics.PointF;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import com.haeyum.safecorona.models.InfectedRoute;
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.map.CameraAnimation;
@@ -52,12 +46,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -99,6 +91,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private int death = -1;
     private String date = "";
 
+    private ArrayList<String> listInfectedContext = new ArrayList<>();
+
     // Location
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1000;
     private FusedLocationSource locationSource;
@@ -121,9 +115,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         initUI();
 
-        Intent intent = new Intent(getApplicationContext(), AlertActivity.class);
+        Intent intent = new Intent(getApplicationContext(), NoticeActivity.class);
         intent.putExtra("title", "공지사항");
-        intent.putExtra("context", "공지사항을 넣어봅시다!");
+        intent.putExtra("context", "안녕하세요! 이것은 공지사항이라고 하며\n만약 이 창이 보인다면 서버에서 공지를 받아오지 못하고 오류가 발생하였다는 것 입니다.\n\n주저말고 개발자에게 연락주세요!");
         intent.putExtra("id", 1);
         startActivity(intent);
 //        Timer timer = new Timer();
@@ -292,6 +286,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     for(int i=0; i<jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         String title = jsonObject.getString("title");
+                        final String context = jsonObject.getString("context");
 
                         JSONArray arrayLocation = new JSONArray(jsonObject.getString("location"));
 
@@ -347,7 +342,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 //                                    initDetailInfectedRoute(count, index);
 
                                     tvDetailTitle.setText((count + 1) + "번째 확진자");
-                                    tvDetailContext.setText("코로나바이러스 확진자의 이동 경로입니다");
+                                    tvDetailContext.setText(context);
 
                                     CameraUpdate cameraUpdate = CameraUpdate.scrollTo(latLng).animate(CameraAnimation.Linear); //new LatLng(37.5666102, 126.9783881)
                                     naverMap.moveCamera(cameraUpdate);

@@ -84,9 +84,9 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toBottomOf="@id/tv_main_detail_title"
                     app:layout_constraintStart_toStartOf="@id/tv_main_detail_title"
-                    app:layout_goneMarginTop="48dp"
                     android:textAlignment="center"
                     android:text="확진자 위치 파악, 실시간 위치정보 알림 서비스"
+                    android:layout_marginTop="2dp"
                     android:textColor="#33323A"
                     android:fontFamily="@font/ko_pub_dotum_medium"
                     android:textSize="10sp"/>
@@ -318,15 +318,21 @@
                 app:layout_constraintEnd_toEndOf="@id/cl_main_detail_header"
                 android:visibility="gone">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_main_detail_location"
-                    android:layout_width="0dp"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:maxHeight="500dp"
+                    app:layout_constraintBottom_toBottomOf="parent">
 
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_main_detail_location"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             <!--            <ImageView-->
 <!--                android:src="@drawable/drawable_dash_line"-->

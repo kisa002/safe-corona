@@ -4,10 +4,16 @@ import android.Manifest;
 import android.app.Service;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.PixelFormat;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -61,6 +67,9 @@ public class GPSService extends Service implements GoogleApiClient.ConnectionCal
 
     }
 
+    View view;
+    WindowManager mWindowManager;
+
     @Override
     public void onLocationChanged(Location location) {
         Log.i(LOGSERVICE, "lat " + location.getLatitude());
@@ -72,11 +81,42 @@ public class GPSService extends Service implements GoogleApiClient.ConnectionCal
 
         if(distance < 1) {
             Intent intent = new Intent(getApplicationContext(), AlertActivity.class);
-            intent.putExtra("title", "위험!");
-            intent.putExtra("context", "위험 ! 현재 확진자가 발생한 장소에 근접해있습니다.");
+//            intent.putExtra("title", "위험! 현재 확진자가 활동한 장소에 근접해있습니다.");
+            intent.putExtra("context", "내용을 따악");
             intent.putExtra("id", 1);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
+        }
+
+//        view = LayoutInflater.from(this).inflate(R.layout.activity_notice, null);
+//        // 윈도우에 뷰 추가
+//        final WindowManager.LayoutParams params = new WindowManager.LayoutParams(
+//                WindowManager.LayoutParams.WRAP_CONTENT,
+//                WindowManager.LayoutParams.WRAP_CONTENT,
+//                WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
+//                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+//                PixelFormat.TRANSLUCENT);
+//
+//        // 챗 헤드 위치 지정
+//        int gravity = Gravity.CENTER | Gravity.CENTER;
+//        int x = 0;
+//        int y = 0;
+//
+//        params.gravity = gravity;
+//        params.x = x;
+//        params.y = y;
+//
+//        // 윈도우에 뷰 추가
+//        mWindowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
+//        mWindowManager.addView(view, params);
+    }
+
+    public void onClick(View v) {
+        switch (v.getId()) {
+//            case R.id.btn_alert_close:
+//                mWindowManager.removeView(view);
+//                Toast.makeText(this, "hello...?", Toast.LENGTH_SHORT).show();
+//                break;
         }
     }
 

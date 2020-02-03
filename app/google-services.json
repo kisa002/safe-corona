@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "11858854934",
+    "firebase_url": "https://safe-corona.firebaseio.com",
+    "project_id": "safe-corona",
+    "storage_bucket": "safe-corona.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:11858854934:android:58ced0bfb1bc56d4b76137",
+        "android_client_info": {
+          "package_name": "com.haeyum.safecorona"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "11858854934-iuuolkqv42rmlprcp8ogos7jd4v1lknr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBy961GkYh_BSaB_1wUbrNVPwjOjc3ohds"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "11858854934-iuuolkqv42rmlprcp8ogos7jd4v1lknr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
