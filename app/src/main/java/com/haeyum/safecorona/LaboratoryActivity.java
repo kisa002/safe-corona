@@ -2,6 +2,7 @@ package com.haeyum.safecorona;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -25,6 +26,11 @@ public class LaboratoryActivity extends AppCompatActivity {
                 break;
 
             case R.id.ll_laboratory_license:
+                startActivity(new Intent(getApplicationContext(), LicenseActivity.class));
+                break;
+
+            case R.id.ib_header_back:
+                finish();
                 break;
         }
     }

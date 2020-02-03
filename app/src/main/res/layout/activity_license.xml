@@ -1,9 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LicenseActivity">
+    tools:context=".LicenseActivity"
+    android:background="#FFFF"
+    android:orientation="vertical">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <include
+        layout="@layout/layout_header"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="30dp"
+        android:layout_marginHorizontal="40dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Android Sliding Up Panel"
+            android:textSize="15sp"
+            android:fontFamily="@font/ko_pub_dotum_bold"
+            android:textColor="#000000"
+            android:layout_marginBottom="5dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Licensed under the Apache License, Version 2.0 (the &quot;License&quot;\nyou may not use this work except in compliance with the License.\nYou may obtain a copy of the License in the LICENSE file, or at:\n\nhttp://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing,\nsoftware distributed under the License is distributed on an\n&quot;AS IS&quot; BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,\neither express or implied. See the License for the specific language governing\npermissions and limitations under the License."
+            android:textSize="11sp"
+            android:fontFamily="@font/ko_pub_dotum_medium"
+            android:textColor="#000000"/>
+    </LinearLayout>
+
+</LinearLayout>
