@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".LicenseActivity"></activity>
+        <activity android:name=".DeveloperActivity"></activity>
+        <activity android:name=".LicenseActivity" />
         <activity android:name=".LaboratoryActivity" />
         <activity android:name=".PreventionActivity" />
         <activity android:name=".SplashActivity">

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DeveloperActivity"
+    android:background="#FFFF">
+
+    <include
+        layout="@layout/layout_header"/>
+
+    <ImageView
+        android:id="@+id/iv_developer_face1"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:src="@drawable/face_1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cl_header"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="32dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="vnycall74@gmail.com"
+        android:textSize="15sp"
+        android:textColor="#000000"
+        android:fontFamily="@font/ko_pub_dotum_bold"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toTopOf="@id/tv_developer_mention1"
+        app:layout_constraintEnd_toEndOf="@id/tv_developer_mention1"/>
+
+    <TextView
+        android:id="@+id/tv_developer_mention1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="현재 한국산업기술대학교 \n컴퓨터공학부 소프트웨어학과\n\n1학년 휴학 후 산업기능요원으로 \n활동하고 있는 유광무 입니다 :D"
+        android:textSize="12sp"
+        android:lineHeight="15sp"
+        android:textColor="#000000"
+        android:textAlignment="viewEnd"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintBottom_toBottomOf="@id/iv_developer_face1" />
+
+    <ImageView
+        android:id="@+id/iv_developer_face2"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:src="@drawable/face_2"
+        app:layout_constraintTop_toBottomOf="@+id/iv_developer_face1"
+        app:layout_constraintEnd_toEndOf="@id/tv_developer_mention1"
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="32dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="owovv11@naver.com"
+        android:textSize="15sp"
+        android:textColor="#000000"
+        android:fontFamily="@font/ko_pub_dotum_bold"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toTopOf="@id/tv_developer_mention2"
+        app:layout_constraintStart_toStartOf="@id/iv_developer_face1"/>
+
+    <TextView
+        android:id="@+id/tv_developer_mention2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="부천대학교 영상&amp;게임콘텐츠 학과\n재학중인 이유진 입니다."
+        android:textSize="12sp"
+        android:lineHeight="15sp"
+        android:textColor="#000000"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="32dp"
+        app:layout_constraintBottom_toBottomOf="@id/iv_developer_face2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="최대한 코로나 바이러스의 예방을 하고자, 앱을 기획,개발 하였고\n사용자분들에게 필요한 기능을 생각하여 빠르게 만들었습니다.\n\n제안하실 기능이나 내용이 있다면 주저하지마시고 연락주세요!"
+        android:textColor="#000000"
+        android:textSize="12sp"
+        android:fontFamily="@font/ko_pub_dotum_medium"
+        android:textAlignment="center"
+        android:lineHeight="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="70dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
