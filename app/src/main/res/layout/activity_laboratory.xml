@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LaboratoryActivity"
+    android:background="#FFF"
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/layout_header"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginTop="20dp"
+        android:paddingVertical="15dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="위험 지역 경보 알람"
+                android:textSize="20dp"
+                android:textColor="#000"
+                android:fontFamily="@font/ko_pub_dotum_bold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="사용자의 위치를 파악하여 확진자가 이동하였던\n경로 일시 알람을 보내드립니다."
+                android:textSize="12dp"
+                android:textColor="#000"
+                android:fontFamily="@font/ko_pub_dotum_medium"
+                android:layout_marginTop="5dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center|right"
+            android:paddingRight="20dp">
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="#A7A7"
+                android:checked="true"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_laboratory_developer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="40dp"
+        android:paddingVertical="15dp"
+        android:onClick="onClick">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="개발자 정보"
+                android:textSize="20dp"
+                android:textColor="#000"
+                android:fontFamily="@font/ko_pub_dotum_bold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="여러가지 제보, 제안을 해주세요!"
+                android:textSize="12dp"
+                android:textColor="#000"
+                android:fontFamily="@font/ko_pub_dotum_medium"
+                android:layout_marginTop="5dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center|right"
+            android:paddingRight="30dp">
+
+            <ImageView
+                android:layout_width="10.5dp"
+                android:layout_height="20.55dp"
+                android:src="@drawable/page_in_icon"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_laboratory_license"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="40dp"
+        android:paddingVertical="15dp"
+        android:onClick="onClick">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="오픈소스 라이선스"
+                android:textSize="20dp"
+                android:textColor="#000"
+                android:fontFamily="@font/ko_pub_dotum_bold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="개발할떄 쓰인 라이선스"
+                android:textSize="12dp"
+                android:textColor="#000"
+                android:fontFamily="@font/ko_pub_dotum_medium"
+                android:layout_marginTop="5dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center|right"
+            android:paddingRight="30dp">
+
+            <ImageView
+                android:layout_width="10.5dp"
+                android:layout_height="20.55dp"
+                android:src="@drawable/page_in_icon"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="여러가지 기능들을 생각하고 있으며,\n더 많은것들이 추후 업데이트 될 예정입니다"
+        android:textSize="15sp"
+        android:textColor="#b2b2b2"
+        android:fontFamily="@font/ko_pub_dotum_medium"
+        android:gravity="bottom|center"
+        android:layout_marginBottom="60dp"/>
+
+</LinearLayout>

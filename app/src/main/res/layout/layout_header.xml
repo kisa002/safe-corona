@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#FFFFFF"
+    android:id="@+id/cl_header">
+
+    <ImageButton
+        android:id="@+id/ib_header_back"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="#00000000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="23dp"
+        android:layout_marginLeft="19dp"
+        android:onClick="onClick"/>
+
+    <ImageView
+        android:id="@+id/iv_header_back"
+        android:layout_width="9.3dp"
+        android:layout_height="15.7dp"
+        android:src="@drawable/back_icon2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="35dp"
+        android:layout_marginLeft="35dp"/>
+
+    <TextView
+        android:id="@+id/tv_header_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000"
+        android:text="예방방법"
+        android:textSize="20sp"
+        android:fontFamily="@font/ko_pub_dotum_bold"
+        app:layout_constraintStart_toEndOf="@id/iv_header_back"
+        app:layout_constraintTop_toTopOf="@id/iv_header_back"
+        app:layout_constraintBottom_toBottomOf="@id/iv_header_back"
+        android:layout_marginBottom="2dp"
+        android:layout_marginLeft="35dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1.5dp"
+        android:layout_marginTop="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_header_back"
+        android:layout_marginHorizontal="17dp"
+        android:background="#A7A7A7"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

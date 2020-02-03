@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.graphics.Camera;
 import android.graphics.Color;
 import android.graphics.PointF;
@@ -69,7 +70,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private LinearLayout llMore;
 
+    // Detail
     private TextView tvDetailTitle, tvDetailContext;
+
+    private TextView tvInfoInfected, tvInfoSymptom, tvInfoRelease, tvInfoQuarantine, tvInfoRecovery, tvInfoDeath, tvInfoDate;
 
     // Data
     private ArrayList<ArrayList<InfectedRoute>> listInfectedRoute = new ArrayList<>();
@@ -81,6 +85,15 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private int prevIndex = -1;
 
     private boolean isServerConnected;
+
+    // Info
+    private int infected = -1;
+    private int symptom = -1;
+    private int release = -1;
+    private int quarantine = -1;
+    private int recovery = -1;
+    private int death = -1;
+    private String date = "";
 
     // Location
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1000;
@@ -118,6 +131,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         tvDetailTitle = findViewById(R.id.tv_main_detail_title);
         tvDetailContext = findViewById(R.id.tv_main_detail_context);
+
+        tvInfoInfected = findViewById(R.id.tv_main_detail_info_infected_count);
+        tvInfoSymptom = findViewById(R.id.tv_main_detail_info_symptom_count);
+        tvInfoRelease = findViewById(R.id.tv_main_detail_info_release_count);
+        tvInfoQuarantine = findViewById(R.id.tv_main_detail_info_quarantine_count);
+        tvInfoRecovery = findViewById(R.id.tv_main_detail_info_recovery_count);
+        tvInfoDeath = findViewById(R.id.tv_main_detail_info_death_count);
+        tvInfoDate = findViewById(R.id.tv_main_detail_date);
 
         locationSource = new FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE);
 
@@ -171,6 +192,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 llMore.setVisibility(View.GONE);
                 break;
 
+            case R.id.cl_more_laboratory:
+                startActivity(new Intent(getApplicationContext(), LaboratoryActivity.class));
+                break;
+
+            case R.id.cl_more_prevention_method:
+                startActivity(new Intent(getApplicationContext(), PreventionActivity.class));
+                break;
+
             case R.id.cl_more_close:
                 llMore.setVisibility(View.GONE);
                 break;
@@ -196,6 +225,18 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     final Handler handlerUpdateMap = new Handler(){
         public void handleMessage(Message msg){
             updateMap();
+        }
+    };
+
+    final Handler handlerUpdateInfo = new Handler() {
+        public void handleMessage(Message msg) {
+            tvInfoInfected.setText(infected + "명");
+            tvInfoSymptom.setText(symptom + "명");
+            tvInfoRelease.setText(release + "명");
+            tvInfoQuarantine.setText(quarantine + "명");
+            tvInfoRecovery.setText(recovery + "명");
+            tvInfoDeath.setText(death + "명");
+            tvInfoDate.setText(date);
         }
     };
 
@@ -320,6 +361,49 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     handlerUpdateMap.sendMessage(msg);
 
                     isServerConnected = true;
+                } catch (MalformedURLException e) {
+                    Log.d("HTTP Failed", e.toString());
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    Log.d("HTTP Failed", e.toString());
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    Log.d("JSON Failed", e.toString());
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+    }
+
+    private void loadServerInfo() {
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    URL url = new URL("https://haeyum.ml/safe-corona/api/info.json");
+                    HttpURLConnection con = (HttpURLConnection) url.openConnection();
+
+                    InputStream is = con.getInputStream();
+                    StringBuilder sb = new StringBuilder();
+                    BufferedReader br = new BufferedReader(new InputStreamReader(is,"UTF-8"));
+                    String result;
+                    while((result = br.readLine())!=null){
+                        sb.append(result+"\n");
+                    }
+
+                    result = sb.toString();
+                    JSONObject jsonObject = new JSONObject(result);
+
+                    infected = jsonObject.getInt("infected");
+                    symptom = jsonObject.getInt("symptom");
+                    release = jsonObject.getInt("release");
+                    quarantine = jsonObject.getInt("quarantine");
+                    recovery = jsonObject.getInt("recovery");
+                    death = jsonObject.getInt("death");
+                    date = jsonObject.getString("date");
+
+                    Message msg = handlerUpdateInfo.obtainMessage();
+                    handlerUpdateInfo.sendMessage(msg);
                 } catch (MalformedURLException e) {
                     Log.d("HTTP Failed", e.toString());
                     e.printStackTrace();
@@ -468,6 +552,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     timer.cancel();
                 } else {
                     loadServerDetail();
+                    loadServerInfo();
                 }
             }
         };
@@ -517,11 +602,17 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         if(naverMap == null)
             return;
 
-        updateMap();
-//        Log.d("Circle Count", listCircle.size() + " CNT");
+        try {
+            updateMap();
+    //        Log.d("Circle Count", listCircle.size() + " CNT");
 
-        Log.d("onCameraChange", "Zoom: " + naverMap.getCameraPosition().zoom);
-//        Log.d("onCameraChange", "Calc: " + getZoomRadius());
+            Log.d("onCameraChange", "Zoom: " + naverMap.getCameraPosition().zoom);
+    //        Log.d("onCameraChange", "Calc: " + getZoomRadius());
+
+            throw new Exception();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PreventionActivity"
+    android:background="#FFF"
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/layout_header"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_prevention_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="신종 코로나 바이러스 감염 예방"
+            android:textColor="#000"
+            android:textSize="20sp"
+            android:fontFamily="@font/ko_pub_dotum_bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cl_header"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="20dp"/>
+
+        <TextView
+            android:id="@+id/tv_prevention_context"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="아직 치료제나 백신이 없어 더 무섭게 느껴지는 “신종 코로나 바이러스”\n지켜야할 행동 수칙으로 조금이나마 예방합시다!"
+            android:textSize="12sp"
+            android:textColor="#000"
+            android:fontFamily="@font/ko_pub_dotum_medium"
+            app:layout_constraintTop_toBottomOf="@id/tv_prevention_title"
+            app:layout_constraintStart_toStartOf="@id/tv_prevention_title"
+            android:layout_marginTop="10dp"
+            android:lineHeight="15sp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginBottom="30dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingHorizontal="30dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/tv_prevention_method1_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="손바닥, 손톱 밑 등 흐르는물의 30초로 꼼꼼하게 손씻기"
+                    android:lineHeight="15sp"
+                    android:textSize="13sp"
+                    android:textColor="#000"
+                    android:fontFamily="@font/ko_pub_dotum_bold"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="비누를 이용해 거품내기, 깍지끼고 비비기, 손바닥과 손등 문지르기, 손가락 돌려깎기, 손톱으로 문지르기 등. 수도꼭지를 잠글떈 종이타월로 잠그는것도 중요."
+                    android:textSize="11sp"
+                    android:textColor="#000"
+                    android:lineHeight="15sp"
+                    android:textAlignment="viewEnd"
+                    android:fontFamily="@font/ko_pub_dotum_medium" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/tv_prevention_method2_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:lineHeight="15sp"
+                    android:text="기침할땐 옷소매, 휴지로 가리는 기침매너 가지기."
+                    android:textSize="13sp"
+                    android:textColor="#000"
+                    android:fontFamily="@font/ko_pub_dotum_bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="바이러스의 전파 수단인 기침, 비말튀기기는 각별히 조심하기. 입과 코를 필히 가리며 휴지로 가렸을때 사용한 휴지는 바로 휴지통에 버리자."
+                    android:textSize="11sp"
+                    android:textColor="#000"
+                    android:lineHeight="15sp"
+                    android:textAlignment="viewEnd"
+                    android:fontFamily="@font/ko_pub_dotum_medium" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/tv_prevention_method3_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="중국 여행지역 여행 후 반드시\n보건당국으로 신고하며 자가격리 기간을 갖기."
+                    android:lineHeight="15sp"
+                    android:textSize="13sp"
+                    android:textColor="#000"
+                    android:fontFamily="@font/ko_pub_dotum_bold"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="잠복기간에도 전염률이 높은 바이러스이기에, 반드시 여행후 신고하셔야합니다.\n\n대표적으로 질병관리본부 콜센터 “1339”에 전화하기. 의료기관에 바로 방문하게되면, 병원 내 환자들은 바이러스에 더욱 취약하기때문에 무조건 바로 전화하셔야합니다."
+                    android:textSize="11sp"
+                    android:lineHeight="15sp"
+                    android:textColor="#000"
+                    android:textAlignment="viewEnd"
+                    android:fontFamily="@font/ko_pub_dotum_medium"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/tv_prevention_method4_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="동물(가금류 포함) 접촉 최대한 금지."
+                    android:lineHeight="15sp"
+                    android:textSize="13sp"
+                    android:textColor="#000"
+                    android:fontFamily="@font/ko_pub_dotum_bold"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="애완동물을 산책 후, 씻기는것도 중요하다. 동물에게도 전염이되는 바이러스이기때문. 강아지나 고양이에게도 전염이 될수있다 한다."
+                    android:textSize="11sp"
+                    android:textColor="#000"
+                    android:lineHeight="15sp"
+                    android:textAlignment="viewEnd"
+                    android:fontFamily="@font/ko_pub_dotum_medium"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/tv_prevention_method5_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="의료기관 방문 시 반드시\nKF80, KF94~ 마스크를 필수로 착용"
+                    android:lineHeight="15sp"
+                    android:textSize="13sp"
+                    android:textColor="#000"
+                    android:fontFamily="@font/ko_pub_dotum_bold"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="평소에는 비말을 가릴수있을 정도의 마스크이면 괜찮지만, 의료기관에서는 바이러스가 감염될 확률이 매우 높으므로 반드시 입자차단 성능이 높은 마스크를 필히 착용한다."
+                    android:textSize="11sp"
+                    android:textColor="#000"
+                    android:lineHeight="15sp"
+                    android:textAlignment="viewEnd"
+                    android:fontFamily="@font/ko_pub_dotum_medium"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/tv_prevention_method6_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="만지거나, 악수하는 등 접촉\n바이러스가 있는 물체, 표면을 \n만지고 손을 씻지 않은채 \n눈,코,입을 만지는 경우."
+                    android:lineHeight="15sp"
+                    android:textSize="13sp"
+                    android:textColor="#000"
+                    android:fontFamily="@font/ko_pub_dotum_bold"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="각막으로도 감염이 되는 바이러스입니다.\n외출시 안경을 착용해주시는것도 좋습니다."
+                    android:textSize="11sp"
+                    android:textColor="#000"
+                    android:lineHeight="15sp"
+                    android:textAlignment="viewEnd"
+                    android:fontFamily="@font/ko_pub_dotum_medium"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="40dp">
+
+            <TextView
+                android:id="@+id/tv_prevention_tip1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="외출시 상대방, 자신을 위해서 "
+                android:textSize="13sp"
+                android:textColor="#000"
+                android:fontFamily="@font/ko_pub_dotum_bold"/>
+
+            <TextView
+                android:id="@+id/tv_prevention_tip2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="반드시,필히,무조건 "
+                android:textSize="13sp"
+                android:textColor="#e67c7c"
+                android:fontFamily="@font/ko_pub_dotum_bold"/>
+
+            <TextView
+                android:id="@+id/tv_prevention_tip3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="마스크 착용"
+                android:textSize="13sp"
+                android:textColor="#000"
+                android:fontFamily="@font/ko_pub_dotum_bold"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:text="이번 신종 코로나바이러스는 이전에 없던 새로운 바이러스이기 때문에,\n전파 경로나 잠복기에 특수한 경우가 많습니다. 그러기에 각종 매체를 다양하게 접하시어\n위 내용에 없는, 여러가지 예방 방법을 관심가지시며 찾아보시길 추천드립니다."
+            android:textSize="10sp"
+            android:textColor="#000"
+            android:lineHeight="15sp"
+            android:fontFamily="@font/ko_pub_dotum_medium"/>
+
+    </LinearLayout>
+
+</LinearLayout>
