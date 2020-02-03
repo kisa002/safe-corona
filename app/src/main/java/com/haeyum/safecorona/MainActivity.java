@@ -9,12 +9,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.graphics.Camera;
 import android.graphics.Color;
 import android.graphics.PointF;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.Message;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -107,6 +110,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private ArrayList<CircleOverlay> listCircle = new ArrayList<>();
     private ArrayList<Marker> listMarker = new ArrayList<>();
     private ArrayList<PathOverlay> listPath = new ArrayList<>();
+
+    // Service
+    private GPSService gpsService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -507,7 +513,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @UiThread
     @Override
-    public void onMapReady(@NonNull NaverMap naverMap) {
+    public void onMapReady(@NonNull final NaverMap naverMap) {
         this.naverMap = naverMap;
 
         naverMap.addOnCameraChangeListener(this);
@@ -564,6 +570,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     handlerUpdateMap.sendMessage(msg);
 
                     timer.cancel();
+//                    startLocationCheck();
+                    startService(new Intent(MainActivity.this, GPSService.class));
                 } else {
                     loadServerDetail();
                     loadServerInfo();
@@ -571,6 +579,17 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         };
         timer.schedule(TT, 0, 1000); //Timer 실행
+    }
+
+    private void startLocationCheck() {
+        Timer timer = new Timer();
+        TimerTask tt = new TimerTask() {
+            @Override
+            public void run() {
+                Log.d("LocationCheck", locationSource.getLastLocation().getLatitude() + " | " + locationSource.getLastLocation().getLongitude());
+            }
+        };
+        timer.schedule(tt, 0, 1000); //Timer 실행
     }
 
     private void updateMap() {
@@ -628,6 +647,21 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             e.printStackTrace();
         }
     }
+
+    // Service
+    ServiceConnection serviceCheck = new ServiceConnection() {
+        @Override //서비스가 실행될 때 호출
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            Toast.makeText(MainActivity.this, "Service START", Toast.LENGTH_SHORT).show();
+            Log.e("GPSService", "onServiceConnected()");
+        }
+
+        @Override //서비스가 종료될 때 호출
+        public void onServiceDisconnected(ComponentName name) {
+            Log.e("GPSService", "onServiceDisconnected()");
+            Toast.makeText(MainActivity.this, "Service END", Toast.LENGTH_SHORT).show();
+        }
+    };
 
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {

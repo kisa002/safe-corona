@@ -33,6 +33,10 @@
             android:value="njuskxbgdf" />
 
         <activity android:name=".MainActivity" />
+
+        <service android:name=".CheckService"></service>
+        <service android:name=".GPSService"></service>
     </application>
+
 
 </manifest>
