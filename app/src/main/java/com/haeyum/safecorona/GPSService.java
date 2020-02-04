@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.naver.maps.geometry.LatLng;
@@ -79,6 +80,9 @@ public class GPSService extends Service implements GoogleApiClient.ConnectionCal
 //        Log.i(LOGSERVICE, "lat " + location.getLatitude());
 //        Log.i(LOGSERVICE, "lng " + location.getLongitude());
         LatLng mLocation = (new LatLng(location.getLatitude(), location.getLongitude()));
+
+        if(!PreferenceManager.getBoolean(this, "isUseWaring"))
+            return;
 
         double currentLat = location.getLatitude();
         double currentLng = location.getLongitude();

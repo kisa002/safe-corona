@@ -24,6 +24,11 @@ allprojects {
         maven {
             url 'https://navercorp.bintray.com/maps'
         }
+
+        // 애드몹
+        maven {
+            url 'https://maven.google.com'
+        }
     }
 }
 

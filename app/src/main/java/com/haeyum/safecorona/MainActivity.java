@@ -23,6 +23,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 import com.haeyum.safecorona.models.InfectedRoute;
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.map.CameraAnimation;
@@ -65,6 +70,16 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private ConstraintLayout clLoading;
 
     private LinearLayout llMore;
+
+    // Admob
+    private AdView mAdView;
+    private InterstitialAd mInterstitialAd;
+    private AdRequest adRequest;
+
+    private Timer timerAdmob1;
+    private Timer timerAdmob2;
+    private TimerTask timerTaskAdmobe1;
+    private TimerTask timerTaskAdmobe2;
 
     // Detail
     private TextView tvDetailTitle, tvDetailContext;
@@ -118,6 +133,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         setContentView(R.layout.activity_main);
 
         initUI();
+        initAds();
 //        Timer timer = new Timer();
 //        timer.schedule(timerServerCheck, 0, 5000);
 //        initDetailInfectedRoute();
@@ -157,6 +173,98 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         mapFragment.getMapAsync(this);
     }
 
+    private void initAds() {
+        MobileAds.initialize(this, getString(R.string.admob_app_id));
+
+        mAdView = findViewById(R.id.adView);
+        adRequest = new AdRequest.Builder().build();
+
+        mAdView.loadAd(adRequest);
+
+        // 광고가 제대로 로드 되는지 테스트 하기 위한 코드입니다.
+        mAdView.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                // 광고가 문제 없이 로드시 출력됩니다.
+                Log.d("@@@", "onAdLoaded");
+            }
+
+            @Override
+            public void onAdFailedToLoad(int errorCode) {
+                // 광고 로드에 문제가 있을시 출력됩니다.
+                Log.d("@@@", "onAdFailedToLoad " + errorCode);
+            }
+
+            @Override
+            public void onAdOpened() {
+                // Code to be executed when an ad opens an overlay that
+                // covers the screen.
+            }
+
+            @Override
+            public void onAdClicked() {
+                // Code to be executed when the user clicks on an ad.
+            }
+
+            @Override
+            public void onAdLeftApplication() {
+                // Code to be executed when the user has left the app.
+            }
+
+            @Override
+            public void onAdClosed() {
+                // Code to be executed when the user is about to return
+                // to the app after tapping on an ad.
+            }
+        });
+
+
+        // 전면
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId(getString(R.string.admob_interstitial));
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+
+        timerAdmob1 = new Timer();
+        timerTaskAdmobe1 = new TimerTask() {
+            @Override
+            public void run() {
+                Message msg = handlerAds.obtainMessage();
+                handlerAds.sendMessage(msg);
+            }
+        };
+        timerAdmob1.schedule(timerTaskAdmobe1, 0, 1000); //Timer 실행
+
+        timerAdmob2 = new Timer();
+        timerTaskAdmobe2 = new TimerTask() {
+            @Override
+            public void run() {
+                Message msg = handlerAds.obtainMessage();
+                handlerAds.sendMessage(msg);
+            }
+        };
+    }
+
+    final Handler handlerAds = new Handler(){
+        public void handleMessage(Message msg){
+//            mAdView.loadAd(adRequest);
+            mInterstitialAd.loadAd(new AdRequest.Builder().build());
+
+            if (mInterstitialAd.isLoaded()) {
+                if(timerAdmob1 != null) {
+                    timerAdmob1.cancel();
+                    timerAdmob1 = null;
+
+                    timerAdmob2.schedule(timerTaskAdmobe2, 0, 60000); //Timer 실행
+                }
+
+                mInterstitialAd.show();
+                Log.d("TAG", "The interstitial SHOW");
+            } else {
+                Log.d("TAG", "The interstitial wasn't loaded yet.");
+            }
+        }
+    };
+
     private void initDetailInfectedRoute(int count, int index) {
         // 리사이클러뷰에 표시할 데이터 리스트 생성.
 //        ArrayList<String> list = new ArrayList<>();
@@ -195,7 +303,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_main_detail_more:
+            case R.id.iv_main_detail_more:
                 llMore.setVisibility(View.VISIBLE);
 //                Toast.makeText(this, "Click", Toast.LENGTH_SHORT).show();
                 break;
@@ -484,9 +592,24 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                         String title = jsonObject.getString("title");
                         String context = jsonObject.getString("context");
 
-                        if(PreferenceManager.getBoolean(getApplicationContext(), "isNoticeRead" + id) == false) {
-                            PreferenceManager.setBoolean(getApplicationContext(), "isNoticeRead" + id, true);
+                        String version = "";
+                        try {
+                            version = jsonObject.getString("version");
+                        } catch (Exception e) {
 
+                        }
+
+                        boolean isShow = false;
+
+                        if(version == "") {
+                            if (PreferenceManager.getBoolean(getApplicationContext(), "isNoticeRead" + id) == false) {
+                                PreferenceManager.setBoolean(getApplicationContext(), "isNoticeRead" + id, true);
+                                isShow = true;
+                            }
+                        } else if(!version.equals("1.0.0"))
+                            isShow = true;
+
+                        if(isShow) {
                             Intent intent = new Intent(getApplicationContext(), NoticeActivity.class);
                             intent.putExtra("title", title);
                             intent.putExtra("context", context);

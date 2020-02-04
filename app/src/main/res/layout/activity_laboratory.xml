@@ -48,10 +48,12 @@
             android:paddingRight="20dp">
 
             <CheckBox
+                android:id="@+id/cb_laboratory_waring"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:buttonTint="#A7A7"
-                android:checked="true"/>
+                android:checked="true"
+                android:onClick="onClick"/>
         </LinearLayout>
     </LinearLayout>
 

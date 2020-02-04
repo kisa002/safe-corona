@@ -23,6 +23,11 @@ public class SplashActivity extends AppCompatActivity {
 
         vFade = findViewById(R.id.v_splash_fade);
 
+        if(!PreferenceManager.getBoolean(this, "init")) {
+            PreferenceManager.setBoolean(this, "init", true);
+            PreferenceManager.setBoolean(this, "isUseWaring", true);
+        }
+
         final Timer timer = new Timer();
         final Timer timer2 = new Timer();
 

@@ -5,16 +5,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class LaboratoryActivity extends AppCompatActivity {
 
     private TextView tvHeaderTitle;
+    private CheckBox cbWaring;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_laboratory);
+
+        cbWaring = findViewById(R.id.cb_laboratory_waring);
+        cbWaring.setChecked(PreferenceManager.getBoolean(this, "isUseWaring"));
 
         tvHeaderTitle = findViewById(R.id.tv_header_title);
         SetHeaderTitle("실험실");
@@ -32,6 +38,11 @@ public class LaboratoryActivity extends AppCompatActivity {
 
             case R.id.ib_header_back:
                 finish();
+                break;
+
+            case R.id.cb_laboratory_waring:
+                PreferenceManager.setBoolean(this, "isUseWaring", cbWaring.isChecked());
+//                Toast.makeText(this, PreferenceManager.getBoolean(this, "isUseWaring") + "<", Toast.LENGTH_SHORT).show();
                 break;
         }
     }

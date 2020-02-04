@@ -23,29 +23,29 @@
 
             <fragment
                 android:id="@+id/map"
+                android:name="com.naver.maps.map.MapFragment"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:name="com.naver.maps.map.MapFragment" />
+                android:layout_height="match_parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center|top"
-            android:background="#FFFFFF"
-            app:layout_constraintTop_toBottomOf="@id/cl_main"
             android:layout_marginTop="20dp"
-            android:paddingBottom="30dp">
+            android:background="#FFFFFF"
+            android:gravity="center|top"
+            android:paddingBottom="30dp"
+            app:layout_constraintTop_toBottomOf="@id/cl_main">
 
             <View
                 android:layout_width="50dp"
                 android:layout_height="3dp"
-                android:background="#888888"
                 android:layout_marginTop="8dp"
-                app:layout_constraintTop_toTopOf="parent"
+                android:background="#888888"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_main_detail_header"
@@ -68,37 +68,37 @@
                     android:id="@+id/tv_main_detail_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="16.3dp"
+                    android:layout_marginTop="26.3dp"
+                    android:fontFamily="@font/ko_pub_dotum_bold"
                     android:text="세이프 코로나 Safe Corona"
+                    android:textColor="#33323A"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    android:textColor="#33323A"
-                    android:fontFamily="@font/ko_pub_dotum_bold"
-                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toEndOf="@id/iv_main_detail_logo"
-                    android:layout_marginTop="26.3dp"
-                    android:layout_marginLeft="16.3dp"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/tv_main_detail_context"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/tv_main_detail_title"
-                    app:layout_constraintStart_toStartOf="@id/tv_main_detail_title"
-                    android:textAlignment="center"
-                    android:text="확진자 위치 파악, 실시간 위치정보 알림 서비스"
                     android:layout_marginTop="2dp"
-                    android:textColor="#33323A"
                     android:fontFamily="@font/ko_pub_dotum_medium"
-                    android:textSize="10sp"/>
+                    android:text="확진자 위치 파악, 실시간 위치정보 알림 서비스"
+                    android:textAlignment="center"
+                    android:textColor="#33323A"
+                    android:textSize="10sp"
+                    app:layout_constraintStart_toStartOf="@id/tv_main_detail_title"
+                    app:layout_constraintTop_toBottomOf="@id/tv_main_detail_title" />
 
                 <View
                     android:id="@+id/v_main_detail_bar"
                     android:layout_width="match_parent"
                     android:layout_height="1.5dp"
-                    app:layout_constraintTop_toBottomOf="@id/iv_main_detail_logo"
-                    android:layout_marginTop="19dp"
                     android:layout_marginHorizontal="16dp"
-                    android:background="#AFAFAF"/>
+                    android:layout_marginTop="19dp"
+                    android:background="#AFAFAF"
+                    app:layout_constraintTop_toBottomOf="@id/iv_main_detail_logo" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -106,157 +106,157 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:paddingHorizontal="15dp"
+                android:visibility="visible"
                 app:layout_constraintStart_toStartOf="@id/cl_main_detail_header"
-                app:layout_constraintTop_toBottomOf="@id/cl_main_detail_header"
-                android:visibility="visible">
+                app:layout_constraintTop_toBottomOf="@id/cl_main_detail_header">
 
                 <TextView
                     android:id="@+id/tv_main_detail_info_infected"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="확진자"
-                    android:textSize="16sp"
-                    android:fontFamily="@font/ko_pub_dotum_bold"
-                    android:textColor="#33323A"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginLeft="20dp"
                     android:layout_marginTop="34dp"
-                    android:layout_marginLeft="20dp"/>
+                    android:fontFamily="@font/ko_pub_dotum_bold"
+                    android:text="확진자"
+                    android:textColor="#33323A"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/tv_main_detail_info_infected_count"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="40dp"
+                    android:fontFamily="@font/ko_pub_dotum_medium"
                     android:text="\?명"
                     android:textAlignment="viewEnd"
-                    android:textSize="16sp"
-                    android:fontFamily="@font/ko_pub_dotum_medium"
                     android:textColor="#33323A"
+                    android:textSize="16sp"
                     app:layout_constraintStart_toEndOf="@id/tv_main_detail_info_infected"
-                    app:layout_constraintTop_toTopOf="@id/tv_main_detail_info_infected"
-                    android:layout_marginLeft="40dp"/>
+                    app:layout_constraintTop_toTopOf="@id/tv_main_detail_info_infected" />
 
                 <TextView
                     android:id="@+id/tv_main_detail_info_symptom"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="유증상자"
-                    android:textSize="16sp"
+                    android:layout_marginTop="40dp"
                     android:fontFamily="@font/ko_pub_dotum_bold"
+                    android:text="유증상자"
                     android:textColor="#33323A"
+                    android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="@id/tv_main_detail_info_infected"
-                    app:layout_constraintTop_toBottomOf="@id/tv_main_detail_info_infected"
-                    android:layout_marginTop="40dp"/>
+                    app:layout_constraintTop_toBottomOf="@id/tv_main_detail_info_infected" />
 
                 <TextView
                     android:id="@+id/tv_main_detail_info_symptom_count"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
-                    android:text="\?명"
-                    android:textSize="16sp"
                     android:fontFamily="@font/ko_pub_dotum_medium"
-                    android:textColor="#33323A"
+                    android:text="\?명"
                     android:textAlignment="viewEnd"
+                    android:textColor="#33323A"
+                    android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="@id/tv_main_detail_info_infected_count"
-                    app:layout_constraintTop_toTopOf="@id/tv_main_detail_info_symptom"/>
+                    app:layout_constraintTop_toTopOf="@id/tv_main_detail_info_symptom" />
 
                 <ImageView
                     android:id="@+id/iv_main_detail_info_right"
                     android:layout_width="11.4dp"
                     android:layout_height="14dp"
+                    android:layout_marginTop="90dp"
                     android:src="@drawable/right_icon"
-                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginTop="90dp"/>
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/tv_main_detail_info_release"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="격리해제"
-                    android:textSize="16sp"
-                    android:fontFamily="@font/ko_pub_dotum_bold"
-                    android:textColor="#33323A"
-                    app:layout_constraintStart_toEndOf="@id/iv_main_detail_info_right"
-                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginLeft="20dp"
                     android:layout_marginTop="85dp"
-                    android:layout_marginLeft="20dp"/>
+                    android:fontFamily="@font/ko_pub_dotum_bold"
+                    android:text="격리해제"
+                    android:textColor="#33323A"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toEndOf="@id/iv_main_detail_info_right"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/tv_main_detail_info_quarantine"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="격리중"
-                    android:textSize="16sp"
+                    android:layout_marginTop="0dp"
                     android:fontFamily="@font/ko_pub_dotum_bold"
+                    android:text="격리중"
                     android:textColor="#33323A"
-                    app:layout_constraintStart_toStartOf="@id/tv_main_detail_info_release"
+                    android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="@id/tv_main_detail_info_release"
-                    app:layout_constraintTop_toBottomOf="@id/tv_main_detail_info_release"
-                    android:layout_marginTop="0dp"/>
+                    app:layout_constraintStart_toStartOf="@id/tv_main_detail_info_release"
+                    app:layout_constraintTop_toBottomOf="@id/tv_main_detail_info_release" />
 
                 <TextView
                     android:id="@+id/tv_main_detail_info_release_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="\?명"
-                    android:textSize="16sp"
-                    android:fontFamily="@font/ko_pub_dotum_medium"
-                    android:textColor="#33323A"
                     android:layout_marginLeft="30dp"
-                    app:layout_constraintStart_toEndOf="@id/tv_main_detail_info_release"
+                    android:layout_marginRight="20dp"
+                    android:fontFamily="@font/ko_pub_dotum_medium"
+                    android:text="\?명"
+                    android:textColor="#33323A"
+                    android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/tv_main_detail_info_release"
-                    android:layout_marginRight="20dp"/>
+                    app:layout_constraintStart_toEndOf="@id/tv_main_detail_info_release"
+                    app:layout_constraintTop_toTopOf="@id/tv_main_detail_info_release" />
 
                 <TextView
                     android:id="@+id/tv_main_detail_info_quarantine_count"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="\?명"
-                    android:textSize="16sp"
                     android:fontFamily="@font/ko_pub_dotum_medium"
+                    android:text="\?명"
                     android:textAlignment="viewEnd"
                     android:textColor="#33323A"
-                    app:layout_constraintStart_toStartOf="@id/tv_main_detail_info_release_count"
+                    android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="@id/tv_main_detail_info_release_count"
-                    app:layout_constraintTop_toTopOf="@id/tv_main_detail_info_quarantine"/>
+                    app:layout_constraintStart_toStartOf="@id/tv_main_detail_info_release_count"
+                    app:layout_constraintTop_toTopOf="@id/tv_main_detail_info_quarantine" />
 
                 <ImageView
                     android:id="@+id/iv_main_detail_info_dash"
-                    android:src="@drawable/drawable_dash_line"
-                    android:layerType="software"
                     android:layout_width="match_parent"
                     android:layout_height="1.5dp"
-                    app:layout_constraintTop_toBottomOf="@id/tv_main_detail_info_quarantine"
-                    android:layout_marginTop="30dp"/>
+                    android:layout_marginTop="30dp"
+                    android:layerType="software"
+                    android:src="@drawable/drawable_dash_line"
+                    app:layout_constraintTop_toBottomOf="@id/tv_main_detail_info_quarantine" />
 
                 <TextView
                     android:id="@+id/tv_main_detail_info_recovery"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="회복"
-                    android:textSize="16sp"
-                    android:fontFamily="@font/ko_pub_dotum_bold"
-                    android:textColor="#33323A"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/iv_main_detail_info_dash"
+                    android:layout_marginLeft="20dp"
                     android:layout_marginTop="30dp"
-                    android:layout_marginLeft="20dp"/>
+                    android:fontFamily="@font/ko_pub_dotum_bold"
+                    android:text="회복"
+                    android:textColor="#33323A"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_main_detail_info_dash" />
 
                 <TextView
                     android:id="@+id/tv_main_detail_info_recovery_count"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="40dp"
+                    android:fontFamily="@font/ko_pub_dotum_medium"
                     android:text="\?명"
                     android:textAlignment="viewEnd"
-                    android:textSize="16sp"
-                    android:fontFamily="@font/ko_pub_dotum_medium"
                     android:textColor="#33323A"
+                    android:textSize="16sp"
                     app:layout_constraintStart_toEndOf="@id/tv_main_detail_info_infected"
-                    app:layout_constraintTop_toTopOf="@id/tv_main_detail_info_recovery"
-                    android:layout_marginLeft="40dp"/>
+                    app:layout_constraintTop_toTopOf="@id/tv_main_detail_info_recovery" />
 
                 <TextView
                     android:id="@+id/tv_main_detail_info_death"
@@ -264,8 +264,8 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/ko_pub_dotum_bold"
                     android:text="회복"
-                    android:textSize="16sp"
                     android:textColor="#33323A"
+                    android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="@id/tv_main_detail_info_release"
                     app:layout_constraintStart_toStartOf="@id/tv_main_detail_info_release"
                     app:layout_constraintTop_toTopOf="@id/tv_main_detail_info_recovery" />
@@ -274,49 +274,49 @@
                     android:id="@+id/tv_main_detail_info_death_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="\?명"
-                    android:textSize="16sp"
                     android:fontFamily="@font/ko_pub_dotum_medium"
+                    android:text="\?명"
                     android:textColor="#33323A"
-                    app:layout_constraintStart_toStartOf="@id/tv_main_detail_info_release_count"
+                    android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="@id/tv_main_detail_info_release_count"
-                    app:layout_constraintTop_toTopOf="@id/tv_main_detail_info_recovery"/>
+                    app:layout_constraintStart_toStartOf="@id/tv_main_detail_info_release_count"
+                    app:layout_constraintTop_toTopOf="@id/tv_main_detail_info_recovery" />
 
                 <TextView
                     android:id="@+id/tv_main_detail_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="2020.02.01 21시 기준"
-                    android:textSize="13sp"
+                    android:layout_marginTop="40dp"
                     android:fontFamily="@font/ko_pub_dotum_medium"
+                    android:text="2020.02.01 21시 기준"
                     android:textColor="#33323A"
-                    app:layout_constraintStart_toStartOf="parent"
+                    android:textSize="13sp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_main_detail_info_recovery"
-                    android:layout_marginTop="40dp"/>
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_main_detail_info_recovery" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="지도에서 확진자의 현황을 터치해보세요!"
-                    android:textSize="13sp"
+                    android:layout_marginTop="8dp"
                     android:fontFamily="@font/ko_pub_dotum_bold"
+                    android:text="지도에서 확진자의 현황을 터치해보세요!"
                     android:textColor="#E67C7D"
-                    app:layout_constraintStart_toStartOf="parent"
+                    android:textSize="13sp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_main_detail_date"
-                    android:layout_marginTop="8dp"/>
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_main_detail_date" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_main_detail_route"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:layout_constraintTop_toBottomOf="@id/cl_main_detail_header"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@id/cl_main_detail_header"
                 app:layout_constraintEnd_toEndOf="@id/cl_main_detail_header"
-                android:visibility="gone">
+                app:layout_constraintStart_toStartOf="@id/cl_main_detail_header"
+                app:layout_constraintTop_toBottomOf="@id/cl_main_detail_header">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -331,68 +331,81 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <!--            <ImageView-->
-<!--                android:src="@drawable/drawable_dash_line"-->
-<!--                android:layerType="software"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="1.5dp"-->
-<!--                app:layout_constraintTop_toBottomOf="@id/iv_main_detail_logo"-->
-<!--                android:layout_marginHorizontal="30dp"-->
-<!--                android:layout_marginTop="150dp"/>-->
+            <!--                android:src="@drawable/drawable_dash_line"-->
+            <!--                android:layerType="software"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="1.5dp"-->
+            <!--                app:layout_constraintTop_toBottomOf="@id/iv_main_detail_logo"-->
+            <!--                android:layout_marginHorizontal="30dp"-->
+            <!--                android:layout_marginTop="150dp"/>-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-<!--                WARING DEVELOP-->
-<!--        <TextView-->
-<!--            android:text="Development mode"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"/>-->
+        <!--                WARING DEVELOP-->
+        <!--        <TextView-->
+        <!--            android:text="Development mode"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="match_parent"/>-->
 
     </com.sothree.slidinguppanel.SlidingUpPanelLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="#FFFFFF">
+        android:background="#FFFFFF"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:layout_width="3dp"
             android:layout_height="15dp"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginRight="35dp"
+            android:onClick="onClick"
+            android:src="@drawable/vew_more_icon"
+            android:tint="#7F7F7F"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginRight="35dp"
-            android:tint="#7F7F7F"
-            android:src="@drawable/vew_more_icon"
-            android:onClick="onClick"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="세이프 코로나"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:textSize="20dp"
             android:fontFamily="@font/ko_pub_dotum_medium"
-            android:textColor="#555555"/>
-
-        <Button
-            android:id="@+id/btn_main_detail_more"
-            android:layout_width="35dp"
-            android:layout_height="40dp"
-            app:layout_constraintTop_toTopOf="parent"
+            android:text="세이프 코로나"
+            android:textColor="#555555"
+            android:textSize="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginRight="20dp"
-            android:alpha="0"
-            android:onClick="onClick"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+<!--        <Button-->
+<!--            android:id="@+id/btn_main_detail_more"-->
+<!--            android:layout_width="35dp"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:layout_marginRight="20dp"-->
+<!--            android:alpha="0"-->
+<!--            android:onClick="onClick"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/iv_main_detail_more"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:onClick="onClick"
+        android:src="@drawable/vew_more_icon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/adView" />
 
     <include
         android:id="@+id/ll_more"
@@ -409,13 +422,14 @@
         android:background="#AA000000">
 
         <ProgressBar
+            android:id="@+id/progressBar"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            app:layout_constraintTop_toTopOf="parent"
+            android:indeterminateTint="@color/colorAccent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:indeterminateTint="@color/colorAccent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -431,14 +445,27 @@
             app:layout_constraintEnd_toEndOf="parent"/>
 
         <TextView
+            android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:fontFamily="@font/ko_pub_dotum_medium"
             android:text="계속 로딩중이라면\n인터넷이 연결됐는지 확인해보세요!"
             android:textAlignment="center"
             android:textColor="#EFEFEF"
-            android:fontFamily="@font/ko_pub_dotum_medium"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        app:adSize="BANNER"
+        app:adUnitId="@string/admob_banner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
