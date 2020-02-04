@@ -157,7 +157,7 @@ public class GPSService extends Service implements GoogleApiClient.ConnectionCal
 
                     Intent intent = new Intent(getApplicationContext(), AlertActivity.class);
                     intent.putExtra("title", "현재 " + (i + 1) + "번째 확진자가 활동한 장소에 근접해있습니다!");
-                    intent.putExtra("context", " - " + address);
+                    intent.putExtra("context", address);
                     intent.putExtra("id", 1);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
