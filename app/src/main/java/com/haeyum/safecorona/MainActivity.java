@@ -81,6 +81,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private int prevIndex = -1;
 
     private boolean isServerConnected;
+    private boolean isOfflineConnected;
 
     // Info
     private int infected = -1;
@@ -108,18 +109,15 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     // Service
     private GPSService gpsService;
 
+    // Server
+    private int serverConnectTryCount = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         initUI();
-
-        Intent intent = new Intent(getApplicationContext(), NoticeActivity.class);
-        intent.putExtra("title", "공지사항");
-        intent.putExtra("context", "안녕하세요! 이것은 공지사항이라고 하며\n만약 이 창이 보인다면 서버에서 공지를 받아오지 못하고 오류가 발생하였다는 것 입니다.\n\n주저말고 개발자에게 연락주세요!");
-        intent.putExtra("id", 1);
-        startActivity(intent);
 //        Timer timer = new Timer();
 //        timer.schedule(timerServerCheck, 0, 5000);
 //        initDetailInfectedRoute();
@@ -262,7 +260,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     return;
 
                 try {
-                    URL url = new URL("https://haeyum.ml/safe-corona/api/infected.json");
+                    URL url = new URL("https://haeyum.ml/safe-corona/api/infected");
                     HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
                     InputStream is = con.getInputStream();
@@ -283,6 +281,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                     isServerConnected = true;
 
+                    PreferenceManager.setInt(getApplicationContext(), "infectedCount", jsonArray.length());
+
                     for(int i=0; i<jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         String title = jsonObject.getString("title");
@@ -302,6 +302,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                         path.setColor(color);
 
+                        // 확진자 제목과 설명
+                        PreferenceManager.setString(getApplicationContext(), "infected" + i + "Title", title);
+                        PreferenceManager.setString(getApplicationContext(), "infected" + i + "Context", context);
+                        PreferenceManager.setInt(getApplicationContext(), "infected" + i + "Color", color);
+
+                        PreferenceManager.setInt(getApplicationContext(), "infected" + i + "LocationCount", arrayLocation.length());
+
                         for(int j=0; j<arrayLocation.length(); j++) {
                             JSONObject objLocation = arrayLocation.getJSONObject(j);
                             final LatLng latLng = new LatLng(objLocation.getDouble("lat"), objLocation.getDouble("lng"));
@@ -311,6 +318,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                             circle.setRadius(getZoomRadius()); //(21 - naverMap.getCameraPosition().zoom) * 10
                             circle.setColor(color); //0x80ff5050
                             circle.setGlobalZIndex(100000);
+
+                            // 확진자 위치
+                            PreferenceManager.setFloat(getApplicationContext(), "infected" + i + "Lat" + j, (float)latLng.latitude);
+                            PreferenceManager.setFloat(getApplicationContext(), "infected" + i + "Lng" + j, (float)latLng.longitude);
+                            PreferenceManager.setString(getApplicationContext(), "infected" + i + "Date" + j, objLocation.getString("date"));
+                            PreferenceManager.setString(getApplicationContext(), "infected" + i + "Address" + j, objLocation.getString("address"));
 
                             Marker marker = new Marker();
                             marker.setPosition(latLng);
@@ -395,7 +408,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void run() {
                 try {
-                    URL url = new URL("https://haeyum.ml/safe-corona/api/info.json");
+                    URL url = new URL("https://haeyum.ml/safe-corona/api/info");
                     HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
                     InputStream is = con.getInputStream();
@@ -417,8 +430,66 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     death = jsonObject.getInt("death");
                     date = jsonObject.getString("date");
 
+                    PreferenceManager.setInt(getApplicationContext(), "infoInfected", infected);
+                    PreferenceManager.setInt(getApplicationContext(), "infoSymptom", symptom);
+                    PreferenceManager.setInt(getApplicationContext(), "infoRelease", release);
+                    PreferenceManager.setInt(getApplicationContext(), "infoQuarantine", quarantine);
+                    PreferenceManager.setInt(getApplicationContext(), "infoRecovery", recovery);
+                    PreferenceManager.setInt(getApplicationContext(), "infoDeath", death);
+                    PreferenceManager.setString(getApplicationContext(), "infoDate", date);
+
                     Message msg = handlerUpdateInfo.obtainMessage();
                     handlerUpdateInfo.sendMessage(msg);
+                } catch (MalformedURLException e) {
+                    Log.d("HTTP Failed", e.toString());
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    Log.d("HTTP Failed", e.toString());
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    Log.d("JSON Failed", e.toString());
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+    }
+
+    private void loadServerNotice() {
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    URL url = new URL("https://haeyum.ml/safe-corona/api/notice");
+                    HttpURLConnection con = (HttpURLConnection) url.openConnection();
+
+                    InputStream is = con.getInputStream();
+                    StringBuilder sb = new StringBuilder();
+                    BufferedReader br = new BufferedReader(new InputStreamReader(is,"UTF-8"));
+                    String result;
+                    while((result = br.readLine())!=null){
+                        sb.append(result+"\n");
+                    }
+
+                    result = sb.toString();
+                    JSONArray jsonArray = new JSONArray(result);
+
+                    for(int i=0; i<jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                        int id = jsonObject.getInt("id");
+                        String title = jsonObject.getString("title");
+                        String context = jsonObject.getString("context");
+
+                        if(PreferenceManager.getBoolean(getApplicationContext(), "isNoticeRead" + id) == false) {
+                            PreferenceManager.setBoolean(getApplicationContext(), "isNoticeRead" + id, true);
+
+                            Intent intent = new Intent(getApplicationContext(), NoticeActivity.class);
+                            intent.putExtra("title", title);
+                            intent.putExtra("context", context);
+                            intent.putExtra("id", id);
+                            startActivity(intent);
+                        }
+                    }
                 } catch (MalformedURLException e) {
                     Log.d("HTTP Failed", e.toString());
                     e.printStackTrace();
@@ -540,7 +611,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         });
 
 //        LatLng latLng = new LatLng(37.564018, 127.029536);
-        LatLng latLng = new LatLng(37.485829, 126.781014);
+//        LatLng latLng = new LatLng(37.485829, 126.781014);
 //
 //        CircleOverlay circle = new CircleOverlay();
 //        circle.setCenter(latLng);
@@ -553,13 +624,15 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 //        Toast.makeText(this, "Zoom: " + naverMap.getCameraPosition().zoom, Toast.LENGTH_SHORT).show();
 
-        CameraUpdate cameraUpdate = CameraUpdate.scrollTo(latLng); //new LatLng(37.5666102, 126.9783881)
-        naverMap.moveCamera(cameraUpdate);
+//        CameraUpdate cameraUpdate = CameraUpdate.scrollTo(latLng); //new LatLng(37.5666102, 126.9783881)
+//        naverMap.moveCamera(cameraUpdate);
 
         final Timer timer = new Timer();
         TimerTask TT = new TimerTask() {
             @Override
             public void run() {
+                serverConnectTryCount++;
+
                 if(isServerConnected) {
                     Message msg = handlerUpdateMap.obtainMessage();
                     handlerUpdateMap.sendMessage(msg);
@@ -570,10 +643,130 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 } else {
                     loadServerDetail();
                     loadServerInfo();
+                    loadServerNotice();
+
+                    if(serverConnectTryCount == 3) {
+                        isOfflineConnected = true;
+
+                        loadOfflineDetail();
+                        loadOfflineInfo();
+
+                        Message msg = handlerUpdateMap.obtainMessage();
+                        handlerUpdateMap.sendMessage(msg);
+
+                        Intent intent = new Intent(getApplicationContext(), NoticeActivity.class);
+                        intent.putExtra("title", "오프라인 모드");
+                        intent.putExtra("context", "서버에 연결할 수 없습니다!\n기존에 저장된 데이터가 표시됩니다.");
+                        startActivity(intent);
+
+                        timer.cancel();
+                        startService(new Intent(MainActivity.this, GPSService.class));
+                    }
                 }
             }
         };
         timer.schedule(TT, 0, 1000); //Timer 실행
+    }
+
+    private void loadOfflineDetail() {
+        int infectedCount = PreferenceManager.getInt(this, "infectedCount");
+
+        // infected
+        for(int i=0; i<infectedCount; i++) {
+            String title = PreferenceManager.getString(getApplicationContext(), "infected" + i + "Title");
+            final String context = PreferenceManager.getString(getApplicationContext(), "infected" + i + "Context");
+
+            ArrayList<InfectedRoute> infectedRoutes = new ArrayList<>();
+
+            int color = PreferenceManager.getInt(getApplicationContext(), "infected" + i + "Color");
+
+            PathOverlay path = new PathOverlay();
+            ArrayList<LatLng> pathCoords = new ArrayList<>();
+
+            path.setColor(color);
+
+            int locationCount = PreferenceManager.getInt(getApplicationContext(), "infected" + i + "LocationCount");
+
+            for(int j=0; j<locationCount; j++) {
+                float lat = PreferenceManager.getFloat(getApplicationContext(), "infected" + i + "Lat" + j);
+                float lng = PreferenceManager.getFloat(getApplicationContext(), "infected" + i + "Lng" + j);
+
+                final LatLng latLng = new LatLng(lat, lng);
+
+                CircleOverlay circle = new CircleOverlay();
+                circle.setCenter(latLng);
+                circle.setRadius(getZoomRadius());
+                circle.setColor(color);
+                circle.setGlobalZIndex(100000);
+
+                String date = PreferenceManager.getString(getApplicationContext(), "infected" + i + "Date" + j);
+                String address = PreferenceManager.getString(getApplicationContext(), "infected" + i + "Address" + j);
+
+                Marker marker = new Marker();
+                marker.setPosition(latLng);
+                marker.setGlobalZIndex(150000);
+                marker.setWidth(10);
+                marker.setHeight(10);
+                marker.setIcon(MarkerIcons.BLACK);
+                marker.setIconTintColor(color); //0x80ff5050
+                marker.setCaptionText((i + 1) + "번");
+
+                if(latLng.latitude != -1 || latLng.longitude != -1)
+                    pathCoords.add(latLng);
+
+                final int count = i;
+                final int index = j;
+
+                circle.setOnClickListener(new Overlay.OnClickListener() {
+                    @Override
+                    public boolean onClick(@NonNull Overlay overlay) {
+                        selectedCount = count;
+                        selectedIndex = index;
+
+                        showDetailRoute();
+
+                        Message msg = handlerInitDetailInfectedRoute.obtainMessage();
+                        handlerInitDetailInfectedRoute.sendMessage(msg);
+
+                        tvDetailTitle.setText((count + 1) + "번째 확진자");
+                        tvDetailContext.setText(context);
+
+                        CameraUpdate cameraUpdate = CameraUpdate.scrollTo(latLng).animate(CameraAnimation.Linear); //new LatLng(37.5666102, 126.9783881)
+                        naverMap.moveCamera(cameraUpdate);
+
+                        Log.d("CircleClick", count + "번째 확진자: " + index);
+                        return false;
+                    }
+                });
+
+                listCircle.add(circle);
+                listMarker.add(marker);
+
+                InfectedRoute tempInfetedRoute = new InfectedRoute();
+                tempInfetedRoute.setDate(date);
+                tempInfetedRoute.setRoute(address);
+
+                infectedRoutes.add(tempInfetedRoute);
+            }
+
+            if(pathCoords.size() < 2)
+                path = null;
+            else
+                path.setCoords(pathCoords);
+
+            listPath.add(path);
+            listInfectedRoute.add(infectedRoutes);
+        }
+    }
+
+    private void loadOfflineInfo() {
+        infected = PreferenceManager.getInt(getApplicationContext(), "infoInfected");
+        symptom = PreferenceManager.getInt(getApplicationContext(), "infoSymptom");
+        release = PreferenceManager.getInt(getApplicationContext(), "infoRelease");
+        quarantine = PreferenceManager.getInt(getApplicationContext(), "infoQuarantine");
+        recovery = PreferenceManager.getInt(getApplicationContext(), "infoRecovery");
+        death = PreferenceManager.getInt(getApplicationContext(), "infoDeath");
+        date = PreferenceManager.getString(getApplicationContext(), "infoDate");
     }
 
     private void startLocationCheck() {
@@ -588,7 +781,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     private void updateMap() {
-        if(!isServerConnected)
+        if(!isServerConnected && !isOfflineConnected)
             return;
 
         for (CircleOverlay circle: listCircle) {
