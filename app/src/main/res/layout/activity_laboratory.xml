@@ -123,7 +123,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="개발할떄 쓰인 라이선스"
+                android:text="개발에 사용된 라이선스 입니다 :D"
                 android:textSize="12dp"
                 android:textColor="#000"
                 android:fontFamily="@font/ko_pub_dotum_medium"

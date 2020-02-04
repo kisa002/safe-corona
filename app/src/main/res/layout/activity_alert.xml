@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cl_alert"
     android:layout_width="match_parent"
-    android:layout_height="140dp"
+    android:layout_height="wrap_content"
     tools:context=".AlertActivity"
     android:background="@drawable/drawable_detail_rounded"
     android:onClick="onClick">
@@ -13,7 +13,7 @@
         android:id="@+id/tv_alert_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="세이프 코로나 Safe Corona"
+        android:text="확진자 경고!"
         android:textSize="20sp"
         android:textColor="#000000"
         android:fontFamily="@font/ko_pub_dotum_bold"
@@ -44,7 +44,7 @@
         android:id="@+id/tv_alert_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="위험! 현재 확진자가 활동한 장소에 근접해있습니다."
+        android:text="경고! 현재 확진자가 활동한 장소에 근접해있습니다."
         android:textColor="#000000"
         android:textSize="15sp"
         android:fontFamily="@font/ko_pub_dotum_bold"
@@ -55,15 +55,19 @@
 
     <TextView
         android:id="@+id/tv_alert_context"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="소사구 경기도 부천시"
+        android:text="본 내용이 나오는 경우 오류가 발생한 것 입니다!"
         android:textColor="#000000"
-        android:textSize="12sp"
+        android:autoSizeTextType="uniform"
+        android:autoSizeMaxTextSize="13dp"
         android:fontFamily="@font/ko_pub_dotum_medium"
         app:layout_constraintStart_toStartOf="@id/tv_alert_title"
+        app:layout_constraintEnd_toEndOf="@id/v_alert_line"
         app:layout_constraintTop_toBottomOf="@id/tv_alert_title"
-        android:layout_marginTop="5dp"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="2dp"
+        android:paddingBottom="20dp"/>
 
     <ImageView
         android:layout_width="wrap_content"
@@ -73,6 +77,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="23dp"
         android:layout_marginRight="28dp"/>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

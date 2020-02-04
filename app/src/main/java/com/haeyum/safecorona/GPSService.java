@@ -3,6 +3,7 @@ package com.haeyum.safecorona;
 import android.Manifest;
 import android.app.Service;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.PixelFormat;
 import android.location.Location;
@@ -20,6 +21,9 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.naver.maps.geometry.LatLng;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
@@ -72,20 +76,92 @@ public class GPSService extends Service implements GoogleApiClient.ConnectionCal
 
     @Override
     public void onLocationChanged(Location location) {
-        Log.i(LOGSERVICE, "lat " + location.getLatitude());
-        Log.i(LOGSERVICE, "lng " + location.getLongitude());
+//        Log.i(LOGSERVICE, "lat " + location.getLatitude());
+//        Log.i(LOGSERVICE, "lng " + location.getLongitude());
         LatLng mLocation = (new LatLng(location.getLatitude(), location.getLongitude()));
 
-        double distance = Util.distance(location.getLatitude(), location.getLongitude(), 37.525015, 126.856173, "kilometer");
-        Log.d(LOGSERVICE, "distance: " + distance);
+        double currentLat = location.getLatitude();
+        double currentLng = location.getLongitude();
 
-        if(distance < 1) {
-            Intent intent = new Intent(getApplicationContext(), AlertActivity.class);
-//            intent.putExtra("title", "위험! 현재 확진자가 활동한 장소에 근접해있습니다.");
-            intent.putExtra("context", "내용을 따악");
-            intent.putExtra("id", 1);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
+        int infectedCount = PreferenceManager.getInt(this, "infectedCount");
+        int closeCount = PreferenceManager.getInt(this, "logWaringCloseCount");
+
+        boolean isShow = false;
+
+        long now = System.currentTimeMillis();
+        Date date = new Date(now);
+
+        String currentYear = new SimpleDateFormat("yyyy").format(date);
+        String currentMonth = new SimpleDateFormat("MM").format(date);
+        String currentDay = new SimpleDateFormat("dd").format(date);
+        String currentHour = new SimpleDateFormat("HH").format(date);
+        String currentMin = new SimpleDateFormat("mm").format(date);
+
+        //                    String lastDate = PreferenceManager.getString(this, "logWaringClose" + closeCount + "Date");
+        String lastYear = PreferenceManager.getString(this, "logWaringClose" + closeCount + "Year");
+        String lastMonth = PreferenceManager.getString(this, "logWaringClose" + closeCount + "Month");
+        String lastDay = PreferenceManager.getString(this, "logWaringClose" + closeCount + "Day");
+        String lastHour = PreferenceManager.getString(this, "logWaringClose" + closeCount + "Hour");
+        String lastMin = PreferenceManager.getString(this, "logWaringClose" + closeCount + "Min");
+
+        if(lastYear == "" || lastHour == "")
+            isShow = true;
+        else {
+            int lastYMD = Integer.parseInt(lastYear + lastMonth + lastDay);
+            int currentYMD = Integer.parseInt(currentYear + currentMonth + currentDay);
+
+            if (currentYMD > lastYMD) {
+                isShow = true;
+            } else {
+                if (Integer.parseInt(currentHour) - Integer.parseInt(lastHour) >= 6)
+                    isShow = true;
+            }
+        }
+
+        if(closeCount == -1)
+            isShow = true;
+
+        if(!isShow)
+            return;
+
+        for(int i=0; i<infectedCount; i++) {
+            int locationCount = PreferenceManager.getInt(getApplicationContext(), "infected" + i + "LocationCount");
+
+            for(int j=0; j<locationCount; j++) {
+                float infectedLat = PreferenceManager.getFloat(getApplicationContext(), "infected" + i + "Lat" + j);
+                float infectedLng = PreferenceManager.getFloat(getApplicationContext(), "infected" + i + "Lng" + j);
+
+                double distance = Util.distance(currentLat, currentLng, infectedLat, infectedLng, "kilometer");
+        //        Log.d(LOGSERVICE, "distance: " + distance);
+
+                if(distance <= 3) {
+//                    if(isShow) {
+    //                    PreferenceManager.setInt("logWaringClose" + closeCount + "Date");
+
+//                    String date = PreferenceManager.getString(getApplicationContext(), "infected" + i + "Date" + j);
+                    String address = PreferenceManager.getString(getApplicationContext(), "infected" + i + "Address" + j);
+
+                    PreferenceManager.setInt(this, "logWaringCloseCount", ++closeCount);
+
+                    PreferenceManager.setInt(this, "logWaringClose" + closeCount + "Infected", i);
+                    PreferenceManager.setInt(this, "logWaringClose" + closeCount + "Route", i);
+                    PreferenceManager.setString(this, "logWaringClose" + closeCount + "Year", currentYear);
+                    PreferenceManager.setString(this, "logWaringClose" + closeCount + "Month", currentMonth);
+                    PreferenceManager.setString(this, "logWaringClose" + closeCount + "Day", currentDay);
+                    PreferenceManager.setString(this, "logWaringClose" + closeCount + "Hour", currentHour);
+                    PreferenceManager.setString(this, "logWaringClose" + closeCount + "Min", currentMin);
+
+                    Intent intent = new Intent(getApplicationContext(), AlertActivity.class);
+                    intent.putExtra("title", "현재 " + (i + 1) + "번째 확진자가 활동한 장소에 근접해있습니다!");
+                    intent.putExtra("context", " - " + address);
+                    intent.putExtra("id", 1);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+
+                    break;
+//                    }
+                }
+            }
         }
 
 //        view = LayoutInflater.from(this).inflate(R.layout.activity_notice, null);

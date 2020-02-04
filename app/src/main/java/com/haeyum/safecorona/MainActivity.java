@@ -236,7 +236,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     final Handler handlerUpdateMap = new Handler(){
         public void handleMessage(Message msg){
-            updateMap();
+            try {
+                updateMap();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     };
 
@@ -645,7 +649,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     loadServerInfo();
                     loadServerNotice();
 
-                    if(serverConnectTryCount == 3) {
+                    if(serverConnectTryCount == 12) {
                         isOfflineConnected = true;
 
                         loadOfflineDetail();
