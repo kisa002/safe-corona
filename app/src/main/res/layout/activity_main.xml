@@ -263,7 +263,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/ko_pub_dotum_bold"
-                    android:text="회복"
+                    android:text="사망"
                     android:textColor="#33323A"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="@id/tv_main_detail_info_release"

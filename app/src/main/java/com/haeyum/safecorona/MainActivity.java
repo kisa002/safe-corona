@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         setContentView(R.layout.activity_main);
 
         initUI();
-        initAds();
+//        initAds();
 //        Timer timer = new Timer();
 //        timer.schedule(timerServerCheck, 0, 5000);
 //        initDetailInfectedRoute();
@@ -254,7 +254,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     timerAdmob1.cancel();
                     timerAdmob1 = null;
 
-                    timerAdmob2.schedule(timerTaskAdmobe2, 0, 60000); //Timer 실행
+                    timerAdmob2.schedule(timerTaskAdmobe2, 0, 200000); //Timer 실행
                 }
 
                 mInterstitialAd.show();
@@ -372,7 +372,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     return;
 
                 try {
-                    URL url = new URL("https://haeyum.ml/safe-corona/api/infected");
+                    URL url = new URL("http://115.68.227.17/safe-corona/api/infected");
                     HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
                     InputStream is = con.getInputStream();
@@ -520,7 +520,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void run() {
                 try {
-                    URL url = new URL("https://haeyum.ml/safe-corona/api/info");
+                    URL url = new URL("http://115.68.227.17/safe-corona/api/info");
                     HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
                     InputStream is = con.getInputStream();
@@ -571,7 +571,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void run() {
                 try {
-                    URL url = new URL("https://haeyum.ml/safe-corona/api/notice");
+                    URL url = new URL("http://115.68.227.17/safe-corona/api/notice");
                     HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
                     InputStream is = con.getInputStream();
